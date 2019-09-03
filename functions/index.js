@@ -5,7 +5,7 @@ admin.initializeApp(functions.config().firebase);
 const express = require('express')
 const app = express()
 const apiRouter = require('./routes/api')
-const viewsRouter = require('./routes')
+const viewsRouter = require('./routes/views')
 var exphbs  = require('express-handlebars');
 
 app.engine('handlebars', exphbs());
