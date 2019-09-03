@@ -4,7 +4,8 @@ admin.initializeApp(functions.config().firebase);
 
 const express = require('express')
 const app = express()
-const router = require('./routes')
+const apiRouter = require('./routes/api')
+const viewsRouter = require('./routes')
 var exphbs  = require('express-handlebars');
 
 app.engine('handlebars', exphbs());
@@ -14,6 +15,7 @@ app.get('/', function (req, res) {
     res.render('home');
 });
 
-app.use('/', router)
+app.use('/', viewsRouter)
+app.use('/api', apiRouter)
 
 exports.app = functions.https.onRequest(app)
