@@ -16,7 +16,16 @@ router.get('/', async (request, response, next) => {
   } catch (error) {
     next(error)
   }
+})
 
+router.get('/:name', async (request, response, next) => {
+  try {
+    const name = request.params.name
+    const products = await productService.getProductsByName(name)
+    response.render('products', {  products })
+  } catch (error) {
+    next(error)
+  }
 })
 
 
