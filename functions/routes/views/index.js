@@ -2,19 +2,17 @@ const router = require('express').Router()
 const routerProducts = require('./products.routes')
 const admin = require('firebase-admin');
 
+const md_auth = require('./../../middlewares/auth')
+// const md_redirect = require('./../../middlewares/redirectHome')
+
 router.use('/products', routerProducts)
 
-router.get('/', async (request, response) => {
+router.get('/', md_auth, async (request, response) => {
   response.render('login')
 })
 
-router.get('/home', async (request, response) => {
+router.get('/home', md_auth, async (request, response) => {
   try {
-    const idToken = request.cookies.__session || '';
-    console.log('cookies: ', JSON.stringify(request.cookies))
-    console.log(idToken)
-    const decodedToken = await admin.auth().verifyIdToken(idToken)
-    let uid = decodedToken.uid;
     response.render('home')
   } catch (error) {
     console.log(error)
